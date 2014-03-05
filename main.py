@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import requests
+
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
@@ -13,9 +15,23 @@ Config.set('graphics', 'width', '400')
 Config.set('graphics', 'height', '600')
 
 class Connexion(Screen):
-	def do_login(self, host, port):
-		print("host : %s || port : %s" % (host, port) )
-		self.manager.current = self.manager.next()
+	def do_login(self, host, login, password):
+		print("host : %s || port : %s" % (host, login) )
+
+		if len(host) is not 0:
+			headers = {'content-type': 'application/json'}
+			payload = {'login': login, 'password': password}
+			try:
+				response = requests.post(host + '/connexion', data= payload, headers=headers)
+			except:
+				print "Une erreur s'est produite"
+			else:
+				if response.raise_for_status() is None:
+					self.manager.current = self.manager.next()
+				else:
+					pass
+		else:
+			print "Hôte non valide"
 
 	def resetForm(self):
 		self.ids['host'].text = ""

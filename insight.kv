@@ -14,34 +14,49 @@
 
 			Label:
 				text: "Hôte"
-				font_size: 18
+				font_size: 12
 				halign: 'left'
 				text_size: root.width-20, 20
 
 			TextInput:
 				id: host
 				multiline:False
-				font_size: 28
+				font_size: 8
 
 		BoxLayout:
 			orientation: 'vertical'
 			Label:
-				text: "Port"
+				text: "Nom d'utilisateur"
 				halign: "left"
-				font_size: 18
+				font_size: 12
 				text_size: root.width-20, 20
 
 			TextInput:
-				id: port
+				id: login
 				multiline:False
 				port:True
-				font_size: 28
+				font_size: 8
+
+		BoxLayout:
+			orientation: 'vertical'
+			Label:
+				text: "Mot de passe"
+				halign: "left"
+				font_size: 12
+				text_size: root.width-20, 20
+
+			TextInput:
+				id: password
+				multiline:False
+				port:True
+				font_size: 8
+				password: True
 
 		Button:
 			text: "Connexion"
 			font_size: 24
 
-			on_press: root.do_login(host.text, port.text)
+			on_press: root.do_login(host.text, login.text, password.text)
 
 
 
